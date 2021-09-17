@@ -1,50 +1,28 @@
 <template>
-  <div ckass="black-bg">
-    <div class="white-bg">
-      <h4>상세페이지 제목</h4>
-      <p>상세페이지 내용</p>
-    </div>
-  </div>
+  <Modal :누른거="누른거" :datas="datas" :modalState="modalState" />
+
   <div class="menu">
     <a v-for="작명 in menus" :key="작명">{{작명}}</a>
   </div>
-  <div>
-    <img src="./assets/room0.jpg" class="room-img">
-    <h4 :style="blueText">역삼동원룸</h4>
-    <p>50만원</p>
-    <button @click="increase('역삼')">허위매물신고</button>
-    <span>신고 수 : {{ 신고수[0] }}</span>
-  </div>
-  <div>
-    <img src="./assets/room1.jpg" class="room-img">
-    <h4 :style="blueText">천호동원룸</h4>
-    <p>60만원</p>
-    <button @click="increase('천호')">허위매물신고</button>
-    <span>신고 수 : {{ 신고수[1] }}</span>
-  </div>
-  <div>
-    <img src="./assets/room2.jpg" class="room-img">
-    <h4 :style="blueText">마포구원룸</h4>
-    <p>70만원</p>
-    <button @click="increase('마포')">허위매물신고</button>
-    <span>신고 수 : {{ 신고수[2] }}</span>
-  </div>
 
-  <!-- <div v-for="(a, i) in 3" :key="i">
-    <h4 :style="blueText">{{products[i]}}</h4>
-    <p>{{price[i]}}만원</p>
-    <button @click="신고수[i]++">허위매물신고</button>
-    <span>신고 수 : {{신고수[i]}}</span>
-  </div> -->
+  <Discount />
+
+  <Card :datas="datas" v-for="(a, i) in datas" :key="i" :i="i" />
 </template>
 
 <script>
-
+import data from './assets/oneroom.js';
+import Discount from './Discount.vue';
+import Modal from './Modal.vue';
+import Card from './Card.vue';
 
 export default {
   name: 'App',
   data() {
     return {
+      datas : data,
+      modalState: false,
+      누른거: 1,
       menus : ['Home', 'Shop', 'About'],
       blueText : 'color : blue',
       products : ['역삼동원룸', '천호동원룸', '마포구원룸'],
@@ -63,7 +41,9 @@ export default {
     }
   },
   components: {
-    
+    Discount: Discount,
+    Modal: Modal,
+    Card: Card,
   }
 }
 </script>
@@ -110,11 +90,5 @@ div {
   color: white;
   padding: 10px;
 }
-
-.room-img {
-  width: 100%;
-  margin-top: 40px;
-}
-
 
 </style>
