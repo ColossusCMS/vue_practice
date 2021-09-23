@@ -1,5 +1,5 @@
 <template>
-  <Modal @closeModal="modalState=false" :item="item" :datas="datas" :modalState="modalState" />
+  <Modal @closeModal="modalState = false" :item="item" :datas="datas" :modalState="modalState" />
 
   <div class="menu">
     <a v-for="i in menus" :key="i">{{i}}</a>
@@ -7,7 +7,7 @@
 
   <Discount />
 
-  <Card @openModal="modalState=true; item=$event;" v-for="(a, i) in datas" :key="i" :data="datas[i]" />
+  <Card @openModal="modalState = true; item = $event" v-for="(a, i) in datas" :key="i" :data="datas[i]" />
 </template>
 
 <script>
@@ -21,7 +21,7 @@ export default {
   data() {
     return {
       datas : data,
-      modalState: false,
+      modalState : false,
       item: 1,
       menus : ['Home', 'Shop', 'About'],
       blueText : 'color : blue',

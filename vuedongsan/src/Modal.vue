@@ -7,7 +7,7 @@
       <!-- <input @input="month=$event.target.value"> -->
       <input v-model="month">
       <p>{{month}}개월 선택함 : {{datas[item].price * month}}원</p>
-      <button @click="$emit('closeModal')">닫기</button>
+      <button @click="close">닫기</button>
     </div>
   </div>
 </template>
@@ -23,6 +23,7 @@ export default {
   props: {
     datas : Array,
     item : Number,
+    modalState : Boolean,
   },
   methods: {
     close() {
