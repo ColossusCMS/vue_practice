@@ -1,9 +1,8 @@
 <template>
   <div>
-    <img :src="datas[i].image" class="room-img">
-    <h4>{{datas[i].title}}</h4>
-    <!-- <h4 @click="modalState = true; 누른거 = i">{{datas[i].title}}</h4> -->
-    <p>{{datas[i].price}}원</p>
+    <img :src="data.image" class="room-img">
+    <h4 @click="send">{{data.title}}</h4>
+    <p>{{data.price}}원</p>
   </div>
 </template>
 
@@ -11,9 +10,13 @@
 export default {
   name: 'Card',
   props: {
-    datas: Array,
-    i: Number,
+    data: Array,
   },
+  methods: {
+    send() {
+      this.$emit('openModal', this.data.id)
+    }
+  }
 }
 </script>
 

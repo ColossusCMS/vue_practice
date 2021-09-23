@@ -1,5 +1,5 @@
 <template>
-  <Modal :누른거="누른거" :datas="datas" :modalState="modalState" />
+  <Modal @closeModal="modalState = false" :누른거="누른거" :datas="datas" :modalState="modalState" />
 
   <div class="menu">
     <a v-for="작명 in menus" :key="작명">{{작명}}</a>
@@ -7,7 +7,7 @@
 
   <Discount />
 
-  <Card :datas="datas" v-for="(a, i) in datas" :key="i" :i="i" />
+  <Card @openModal="modalState = true; 누른거 = $event;" v-for="(a, i) in datas" :key="i" :data="datas[i]" />
 </template>
 
 <script>

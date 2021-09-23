@@ -5,7 +5,7 @@
       <h4>{{datas[누른거].title}}</h4>
       <p>{{datas[누른거].content}}</p>
       <p>{{datas[누른거].price}}원</p>
-      <!-- <button @click="modalState = false">닫기</button> -->
+      <button @click="close">닫기</button>
     </div>
   </div>
 </template>
@@ -16,7 +16,11 @@ export default {
   props: {
     datas : Array,
     누른거 : Number,
-    modalState : Boolean,
+  },
+  methods: {
+    close() {
+      this.$emit('closeModal')
+    }
   }
 }
 </script>
