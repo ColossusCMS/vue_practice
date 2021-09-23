@@ -1,11 +1,13 @@
 <template>
   <div class="black-bg" v-if="modalState == true">
     <div class="white-bg">
-      <img :src="datas[누른거].image" style="width:100%">
-      <h4>{{datas[누른거].title}}</h4>
-      <p>{{datas[누른거].content}}</p>
-      <p>{{datas[누른거].price}}원</p>
-      <button @click="close">닫기</button>
+      <img :src="datas[item].image" style="width:100%">
+      <h4>{{datas[item].title}}</h4>
+      <p>{{datas[item].content}}</p>
+      <!-- <input @input="month=$event.target.value"> -->
+      <input v-model="month">
+      <p>{{month}}개월 선택함 : {{datas[item].price * month}}원</p>
+      <button @click="$emit('closeModal')">닫기</button>
     </div>
   </div>
 </template>
@@ -13,9 +15,14 @@
 <script>
 export default {
   name: 'Modal',
+  data() {
+    return {
+      month: 0,
+    }
+  },
   props: {
     datas : Array,
-    누른거 : Number,
+    item : Number,
   },
   methods: {
     close() {

@@ -1,13 +1,13 @@
 <template>
-  <Modal @closeModal="modalState = false" :누른거="누른거" :datas="datas" :modalState="modalState" />
+  <Modal @closeModal="modalState=false" :item="item" :datas="datas" :modalState="modalState" />
 
   <div class="menu">
-    <a v-for="작명 in menus" :key="작명">{{작명}}</a>
+    <a v-for="i in menus" :key="i">{{i}}</a>
   </div>
 
   <Discount />
 
-  <Card @openModal="modalState = true; 누른거 = $event;" v-for="(a, i) in datas" :key="i" :data="datas[i]" />
+  <Card @openModal="modalState=true; item=$event;" v-for="(a, i) in datas" :key="i" :data="datas[i]" />
 </template>
 
 <script>
@@ -22,12 +22,11 @@ export default {
     return {
       datas : data,
       modalState: false,
-      누른거: 1,
+      item: 1,
       menus : ['Home', 'Shop', 'About'],
       blueText : 'color : blue',
       products : ['역삼동원룸', '천호동원룸', '마포구원룸'],
       price : [50, 60, 70],
-      신고수 : [0,0,0],
     }
   },
   methods: {
