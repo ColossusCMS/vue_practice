@@ -17,7 +17,19 @@ export default {
   name: 'Modal',
   data() {
     return {
-      month: 0,
+      month: 3,
+    }
+  },
+  watch: {
+    month(a) {
+      if(a >= 13) {
+        alert('13이상은 입력할 수 없습니다.')
+        this.month = 3
+      }
+      if(isNaN(a)) {
+        alert('숫자만 입력할 수 있습니다.')
+        this.month = 3
+      }
     }
   },
   props: {
@@ -28,6 +40,12 @@ export default {
   methods: {
     close() {
       this.$emit('closeModal')
+    }
+  },
+  updated() {
+    if(this.month == 2) {
+      alert('계약은 3개월부터 가능합니다.')
+      this.month = 3
     }
   }
 }
