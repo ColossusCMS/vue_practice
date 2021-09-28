@@ -1,19 +1,21 @@
 <template>
   <div class="header">
     <ul class="header-button-left">
-      <li>Cancel</li>
+      <li @click="step=0">Cancel</li>
     </ul>
     <ul class="header-button-right">
-      <li>Next</li>
+      <li v-if="step==1" @click="step++">Next</li>
+      <li v-if="step==2" @click="publish">발행</li>
     </ul>
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <Container :postData="postData" />
+  <Container :postData="postData" :step="step" :url="url" @write="content = $event" />
+  <button @click="more">더보기</button>
 
   <div class="footer">
     <ul class="footer-button-plus">
-      <input type="file" id="file" class="inputfile" />
+      <input @change="upload" type="file" id="file" class="inputfile" />
       <label for="file" class="input-plus">+</label>
     </ul>
   </div>
@@ -22,17 +24,51 @@
 <script>
 import Container from './components/Container.vue';
 import post from './assets/post.js';
+import axios from 'axios';
 
 export default {
   name: 'App',
   data() {
     return {
       postData: post,
+      click: 0,
+      step: 0,
+      url: '',
+      content: '',
     }
   },
   components: {
-    Container: Container,
-  }
+    Container,
+  },
+  methods: {
+    more() {
+      // axios.post('URL', {name : 'kim'}).then().catch( (err) => {})
+      axios.get(`https://codingapple1.github.io/vue/more${this.click}.json`)
+      .then( (result) => {
+        this.postData.push(result.data);
+      })
+      this.click++;
+    },
+    upload(e) {
+      let file = e.target.files;
+      this.url = URL.createObjectURL(file[0]);
+      this.step=1;
+    },
+    publish() {
+      var 내게시물 = {
+        name: "My Test Post",
+        userImage: this.url,
+        postImage: this.url,
+        likes: 0,
+        date: "Sep 30",
+        liked: false,
+        content: this.content,
+        filter: "perpetua"
+      };
+      this.postData.unshift(내게시물);
+      this.step = 0;
+    }
+  },
 }
 </script>
 
