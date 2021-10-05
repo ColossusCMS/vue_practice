@@ -5,19 +5,17 @@
     </div>
 
     <div v-if="step==1">
-      <div class="upload-image" :style="{backgroundImage:`url(${url})`}"></div>
+      <div :class="applyFilter" class="upload-image" :style="{backgroundImage:`url(${url})`}"></div>
       <div class="filters">
-        <div class="filter-1" :style="`background-image:url(${url})`"></div>
-        <div class="filter-1" :style="`background-image:url(${url})`"></div>
-        <div class="filter-1" :style="`background-image:url(${url})`"></div>
-        <div class="filter-1" :style="`background-image:url(${url})`"></div>
-        <div class="filter-1" :style="`background-image:url(${url})`"></div>
+        <FilterBox :image="url" v-for="filter in filterList" :key="filter" :filter="filter">
+          <template v-slot:filterName><span>{{filter}}</span></template>
+        </FilterBox>
       </div>
     </div>
 
 
     <div v-if="step==2">
-      <div class="upload-image" :style="{backgroundImage:`url(${url})`}"></div>
+      <div :class="applyFilter" class="upload-image" :style="{backgroundImage:`url(${url})`}"></div>
       <div class="write">
         <textarea class="write-box" placeholder="여기에 글쓰기" v-model="content" @input="write"></textarea>
       </div>
@@ -27,16 +25,21 @@
 
 <script>
 import Post from "./Post.vue";
+import FilterBox from "./FilterBox.vue"
+import filters from "../assets/filter.js"
 
 export default {
   name: 'Container',
   data() {
     return {
       content: '',
+      filterList: filters,
+      applyFilter: '',
     }
   },
   components: {
     Post: Post,
+    FilterBox,
   },
   props: {
     postData: Object,
@@ -47,6 +50,12 @@ export default {
     write() {
       this.$emit('write', this.content)
     }
+  },
+  mounted() {
+    this.emitter.on('selectFilter', (filter)=>{
+      this.applyFilter = filter
+      console.log(filter)
+    })
   }
 }
 </script>

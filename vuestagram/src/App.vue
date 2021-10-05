@@ -11,9 +11,10 @@
   </div>
 
   <Container :postData="postData" :step="step" :url="url" @write="content = $event" />
-  <button @click="more">더보기</button>
+  
+  <button v-if="step==0" @click="more">더보기</button>
 
-  <div class="footer">
+  <div v-if="step==0" class="footer">
     <ul class="footer-button-plus">
       <input @change="upload" type="file" id="file" class="inputfile" />
       <label for="file" class="input-plus">+</label>
@@ -35,6 +36,7 @@ export default {
       step: 0,
       url: '',
       content: '',
+      applyFilter: '',
     }
   },
   components: {
@@ -63,12 +65,18 @@ export default {
         date: "Sep 30",
         liked: false,
         content: this.content,
-        filter: "perpetua"
+        filter: this.applyFilter,
       };
       this.postData.unshift(내게시물);
       this.step = 0;
     }
   },
+  mounted() {
+    this.emitter.on('selectFilter', (filter)=>{
+      this.applyFilter = filter
+      console.log(filter)
+    })
+  }
 }
 </script>
 
