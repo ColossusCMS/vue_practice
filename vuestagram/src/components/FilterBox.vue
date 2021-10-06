@@ -1,7 +1,6 @@
 <template>
-  <div class="filter-item" :class="filter" :style="`background-image:url(${image})`">
+  <div @click="filterApply" class="filter-item" :class="filter" :style="`background-image:url(${image})`">
     <slot name="filterName"></slot>
-    <button @click="filterApply">버튼</button>
   </div>
 </template>
 
